@@ -3,5 +3,7 @@ project(dust)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp)
-add_executable(dust ${SOURCE_FILES} src/Human.cpp src/Human.h)
+add_subdirectory(src)
+
+#set(SOURCE_FILES main.cpp)
+#add_executable(dust ${SOURCE_FILES} src/Human.cpp src/Human.h)

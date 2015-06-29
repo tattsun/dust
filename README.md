@@ -5,7 +5,7 @@ tattsun's useless C++ library
 ### Requirements
 
 - CppUTest
-See [install instruction](http://cpputest.github.io/).
+    + See [install instruction](http://cpputest.github.io/).
 
 ### Install
 

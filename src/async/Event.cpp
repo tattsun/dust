@@ -41,7 +41,7 @@ namespace dust {
         event_base_free(ev_base_);
     }
 
-    void (*_wrap_callback)(evutil_socket_t sock, short ev_type, void* args) {
+    void _wrap_callback(evutil_socket_t sock, short ev_type, void* args) {
         EventCallBack* cb = (EventCallBack*)args;
         cb->sock = sock;
         cb->ev_type = ev_type;
@@ -67,5 +67,40 @@ namespace dust {
         event_base_dispatch(ev_base_);
     }
 
+    BufferEvent::BufferEvent(EventBase* base, Event* ev, short ev_type) {
+        bufev_ = bufferevent_socket_new(base->get_ev_base_(), ev->get_sock_(), 0);
+    }
+
+    BufferEvent::~BufferEvent() {
+        bufferevent_free(bufev_);
+    }
+
+    void BufferEvent::Enable(short ev_type) {
+        bufferevent_enable(bufev_, ev_type);
+    }
+
+    void BufferEvent::Disable(short ev_type) {
+        bufferevent_disable(bufev_, ev_type);
+    }
+
+    size_t BufferEvent::Read(void *data, size_t size) {
+        return bufferevent_read(bufev_, data, size);
+    }
+
+    size_t BufferEvent::Write(const void *data, size_t size) {
+        return bufferevent_write(bufev_, data, size);
+    }
+
+    std::string BufferEvent::Read(size_t size) {
+        char* cs = (char*)malloc(size);
+        Read(cs, size);
+        std::string str(cs);
+        free(cs);
+        return str;
+    }
+
+    size_t BufferEvent::Write(std::string data) {
+        return Write(data.c_str(), data.length());
+    }
 
 }

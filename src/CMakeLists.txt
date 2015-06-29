@@ -6,6 +6,7 @@ add_subdirectory(async)
 add_library( dust
     Human.cpp
     Human.h
+    Tuple.h
 )
 
 link_libraries(dust async)

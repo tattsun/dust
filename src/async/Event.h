@@ -5,6 +5,8 @@
 #ifndef DUST_EVENT_H
 #define DUST_EVENT_H
 
+#include <iostream>
+#include <event2/bufferevent.h>
 #include "event2/event.h"
 
 namespace dust {
@@ -42,6 +44,24 @@ namespace dust {
 
         void LoopOnce();
         void LoopForever();
+
+        event_base* get_ev_base_();
+    };
+
+    class BufferEvent {
+        bufferevent* bufev_;
+    public:
+        BufferEvent(EventBase* base, Event* ev, short ev_type);
+        ~BufferEvent();
+
+        void Enable(short ev_type);
+        void Disable(short ev_type);
+
+        size_t Read(void* data, size_t size);
+        size_t Write(const void* data, size_t size);
+
+        std::string Read(size_t size);
+        size_t Write(std::string data);
     };
 }
 

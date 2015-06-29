@@ -10,12 +10,15 @@
 #include "event2/event.h"
 
 namespace dust {
+    class Event;
+
     struct EventCallBack {
         EventCallBack(){};
         ~EventCallBack() = default;
         virtual void Call() = 0;
         evutil_socket_t sock;
         short ev_type;
+        Event* ev;
     };
 
     class Event {

@@ -15,5 +15,8 @@ set_target_properties(dust_test PROPERTIES CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -
 target_link_libraries(dust_test dust)
 add_test(dust_test dust_test)
 
+# install
+
+
 #set(SOURCE_FILES main.cpp)
 #add_executable(dust ${SOURCE_FILES} src/Human.cpp src/Human.h)

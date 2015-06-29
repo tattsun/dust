@@ -59,12 +59,16 @@ namespace dust {
         event_del(ev->get_event_());
     }
 
-    void EventBase::LoopOnce() {
-        event_base_loop(ev_base_, 1);
+    int EventBase::LoopOnce() {
+        return event_base_loop(ev_base_, 1);
     }
 
-    void EventBase::LoopForever() {
-        event_base_dispatch(ev_base_);
+    int EventBase::LoopForever() {
+        return event_base_dispatch(ev_base_);
+    }
+
+    event_base* EventBase::get_ev_base_() {
+        return ev_base_;
     }
 
     BufferEvent::BufferEvent(EventBase* base, Event* ev, short ev_type) {
@@ -75,12 +79,12 @@ namespace dust {
         bufferevent_free(bufev_);
     }
 
-    void BufferEvent::Enable(short ev_type) {
-        bufferevent_enable(bufev_, ev_type);
+    int BufferEvent::Enable(short ev_type) {
+        return bufferevent_enable(bufev_, ev_type);
     }
 
-    void BufferEvent::Disable(short ev_type) {
-        bufferevent_disable(bufev_, ev_type);
+    int BufferEvent::Disable(short ev_type) {
+        return bufferevent_disable(bufev_, ev_type);
     }
 
     size_t BufferEvent::Read(void *data, size_t size) {

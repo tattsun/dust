@@ -42,8 +42,8 @@ namespace dust {
         void AddListener(Event* ev);
         void DeleteListener(Event* ev);
 
-        void LoopOnce();
-        void LoopForever();
+        int LoopOnce();
+        int LoopForever();
 
         event_base* get_ev_base_();
     };
@@ -54,8 +54,8 @@ namespace dust {
         BufferEvent(EventBase* base, Event* ev, short ev_type);
         ~BufferEvent();
 
-        void Enable(short ev_type);
-        void Disable(short ev_type);
+        int Enable(short ev_type);
+        int Disable(short ev_type);
 
         size_t Read(void* data, size_t size);
         size_t Write(const void* data, size_t size);

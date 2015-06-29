@@ -3,30 +3,36 @@
 //
 
 #include "PThread.h"
+#include "stdlib.h"
+
 
 namespace dust {
 
     void *_pthread_wrapper(void* args) {
         PThreadWorker* w = (PThreadWorker*)args;
-        w->Call();
-        return NULL;
+        return w->Call();
     }
 
-    PThread::PThread(PThreadWorker* worker) {
-        pthread_create(th_, NULL, _pthread_wrapper, (void*)worker);
+    PThread::PThread(PThreadWorker* worker)
+    :th_(){
+        worker_ = worker;
     }
 
     PThread::~PThread() {
         Cancel();
     }
 
+    int PThread::Start() {
+        return pthread_create(&th_, NULL, _pthread_wrapper, (void*)worker_);
+    }
+
     int PThread::Join() {
-        return pthread_join(*th_, NULL);
+        return pthread_join(th_, NULL);
 
     }
 
     int PThread::Cancel() {
-        return pthread_cancel(*th_);
+        return pthread_cancel(th_);
     }
 
 }

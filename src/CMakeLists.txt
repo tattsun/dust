@@ -1,18 +1,20 @@
 cmake_minimum_required(VERSION 3.2)
 project(dust)
 
-add_subdirectory(async)
-add_subdirectory(thread)
-
-add_library( dust SHARED
+add_library(dust
     Human.cpp
     Human.h
     Tuple.h
+    async/Event.cpp
+    async/Event.h
+    thread/PThread.cpp
+    thread/PThread.h
 )
 
-link_libraries(dust async thread)
+INSTALL(TARGETS dust
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib)
 
-INSTALL(TARGETS dust LIBRARY DESTINATION lib)
-#INSTALL(FILES *.h DESTINATION include/dust)
 INSTALL(DIRECTORY ./ DESTINATION include/dust
     FILES_MATCHING PATTERN "*.h")

@@ -11,17 +11,18 @@ namespace dust{
 
     struct PThreadWorker {
         PThreadWorker() {};
-        ~PThreadWorker() = default;
-        virtual void Call() = 0;
+        virtual ~PThreadWorker() = default;
+        virtual void* Call() = 0;
     };
 
     class PThread {
-        pthread_t* th_;
+        pthread_t th_;
         PThreadWorker* worker_;
     public:
         PThread(PThreadWorker* worker);
         ~PThread();
 
+        int Start();
         int Join();
         int Cancel();
     };

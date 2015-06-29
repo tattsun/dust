@@ -2,6 +2,11 @@
 
 tattsun's useless C++ library
 
+### Requirements
+
+- CppUTest
+See [install instruction](http://cpputest.github.io/).
+
 ### Install
 
 On the dust root directory, run the following commands.

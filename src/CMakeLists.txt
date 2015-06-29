@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 project(dust)
 
 add_subdirectory(async)
+add_subdirectory(thread)
 
 add_library( dust SHARED
     Human.cpp
@@ -9,7 +10,7 @@ add_library( dust SHARED
     Tuple.h
 )
 
-link_libraries(dust async)
+link_libraries(dust async thread)
 
 INSTALL(TARGETS dust LIBRARY DESTINATION lib)
 #INSTALL(FILES *.h DESTINATION include/dust)

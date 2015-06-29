@@ -6,10 +6,10 @@
 
 namespace dust {
 
-    Event::Event(evutil_socket_t sock, EventCallBack callback, short ev_type)
+    Event::Event(evutil_socket_t sock, EventCallBack* callback, short ev_type)
     : sock_(sock)
-    , callback_(callback)
     , ev_type_(ev_type){
+        callback_ = callback;
     }
 
     evutil_socket_t Event::get_sock_() {
@@ -17,7 +17,7 @@ namespace dust {
     }
 
     EventCallBack* Event::get_callback_() {
-        return &callback_;
+        return callback_;
     }
 
     short Event::get_ev_type_() {

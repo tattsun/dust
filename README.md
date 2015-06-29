@@ -16,4 +16,4 @@ $ make
 Copy ```src/``` and ```build/src/libdust.a``` into your projects.
 Then, include header files you need, link ```libdust.a``` when compiling. 
 
-### License
+

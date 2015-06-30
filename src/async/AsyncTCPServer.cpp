@@ -14,7 +14,10 @@ namespace dust {
     }
 
     AsyncTCPServer::~AsyncTCPServer() {
-        srv_.Close();
+        Close();
+        ev_base_->DeleteListener(server_ev_);
+        delete server_ev_;
+        delete server_cb_;
     }
 
 
@@ -37,9 +40,6 @@ namespace dust {
 
     void AsyncTCPServer::Close() {
         srv_.Close();
-        ev_base_->DeleteListener(server_ev_);
-        delete server_ev_;
-        delete server_cb_;
     }
 
 }

@@ -73,7 +73,7 @@ namespace dust {
         BufferEventDataCallBack* writecb_;
         BufferEventEvCallBack* eventcb_;
     public:
-        BufferEvent(EventBase* base, Event* ev, short ev_type);
+        BufferEvent(EventBase* base, evutil_socket_t sock, short ev_type);
         ~BufferEvent();
 
         void SetCallBack(BufferEventDataCallBack* readcb,
@@ -87,10 +87,10 @@ namespace dust {
         int Disable(short ev_type);
 
         size_t Read(void* data, size_t size);
-        size_t Write(const void* data, size_t size);
+        int Write(const void* data, size_t size);
 
         std::string Read(size_t size);
-        size_t Write(std::string data);
+        int Write(std::string data);
     };
 }
 

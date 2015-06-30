@@ -73,8 +73,8 @@ namespace dust {
         return ev_base_;
     }
 
-    BufferEvent::BufferEvent(EventBase* base, Event* ev, short ev_type) {
-        bufev_ = bufferevent_socket_new(base->get_ev_base_(), ev->get_sock_(), 0);
+    BufferEvent::BufferEvent(EventBase* base, evutil_socket_t sock, short ev_type) {
+        bufev_ = bufferevent_socket_new(base->get_ev_base_(), sock, 0);
     }
 
     BufferEvent::~BufferEvent() {
@@ -135,7 +135,7 @@ namespace dust {
         return bufferevent_read(bufev_, data, size);
     }
 
-    size_t BufferEvent::Write(const void *data, size_t size) {
+    int BufferEvent::Write(const void *data, size_t size) {
         return bufferevent_write(bufev_, data, size);
     }
 
@@ -147,7 +147,7 @@ namespace dust {
         return str;
     }
 
-    size_t BufferEvent::Write(std::string data) {
+    int BufferEvent::Write(std::string data) {
         return Write(data.c_str(), data.length());
     }
 

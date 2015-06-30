@@ -81,6 +81,48 @@ namespace dust {
         bufferevent_free(bufev_);
     }
 
+    void _bufev_wrap_read_callback(bufferevent*, void *ctx) {
+        BufferEvent* bufev = (BufferEvent*)ctx;
+        if(bufev->get_readcb_()) {
+            bufev->get_readcb_()->Call(bufev);
+        }
+    }
+
+    void _bufev_wrap_write_callback(bufferevent*, void *ctx) {
+        BufferEvent* bufev = (BufferEvent*)ctx;
+        if(bufev->get_writecb_()) {
+            bufev->get_writecb_()->Call(bufev);
+        }
+    }
+
+    void _bufev_wrap_event_callback(bufferevent*, short evtype, void* ctx) {
+        BufferEvent* bufev = (BufferEvent*)ctx;
+        if(bufev->get_eventcb_()) {
+            bufev->get_eventcb_()->Call(bufev, evtype);
+        }
+    }
+
+    void BufferEvent::SetCallBack(BufferEventDataCallBack *readcb, BufferEventDataCallBack *writecb,
+                                  BufferEventEvCallBack *eventcb) {
+        bufferevent_setcb(bufev_,
+                          _bufev_wrap_read_callback,
+                          _bufev_wrap_write_callback,
+                          _bufev_wrap_event_callback,
+                          (void*)this);
+    }
+
+    BufferEventDataCallBack* const BufferEvent::get_readcb_() const {
+        return readcb_;
+    }
+
+    BufferEventDataCallBack* const BufferEvent::get_writecb_() const {
+        return writecb_;
+    }
+
+    BufferEventEvCallBack* const BufferEvent::get_eventcb_() const {
+        return eventcb_;
+    }
+
     int BufferEvent::Enable(short ev_type) {
         return bufferevent_enable(bufev_, ev_type);
     }

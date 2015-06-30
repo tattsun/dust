@@ -52,11 +52,36 @@ namespace dust {
         event_base* get_ev_base_();
     };
 
+    class BufferEvent;
+
+    struct BufferEventDataCallBack {
+        BufferEventDataCallBack(){};
+        ~BufferEventDataCallBack() = default;
+        virtual void Call(BufferEvent* bufev) = 0;
+    };
+
+    struct BufferEventEvCallBack {
+        BufferEventEvCallBack() {};
+        ~BufferEventEvCallBack() = default;
+        virtual void Call(BufferEvent* bufev, short evtype) = 0;
+    };
+
+
     class BufferEvent {
         bufferevent* bufev_;
+        BufferEventDataCallBack* readcb_;
+        BufferEventDataCallBack* writecb_;
+        BufferEventEvCallBack* eventcb_;
     public:
         BufferEvent(EventBase* base, Event* ev, short ev_type);
         ~BufferEvent();
+
+        void SetCallBack(BufferEventDataCallBack* readcb,
+                         BufferEventDataCallBack* writecb,
+                         BufferEventEvCallBack* eventcb);
+        BufferEventDataCallBack* const get_readcb_() const;
+        BufferEventDataCallBack* const get_writecb_() const;
+        BufferEventEvCallBack* const get_eventcb_() const;
 
         int Enable(short ev_type);
         int Disable(short ev_type);

@@ -33,4 +33,4 @@ $ make
 $ make install
 ```
 
-All headers and shared library will be installed.
+All headers and static library will be installed.

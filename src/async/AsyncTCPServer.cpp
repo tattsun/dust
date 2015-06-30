@@ -42,4 +42,12 @@ namespace dust {
         srv_.Close();
     }
 
+    TCPServer& AsyncTCPServer::get_srv_() {
+        return srv_;
+    }
+
+    EventBase* AsyncTCPServer::get_ev_base_ref() {
+        return ev_base_;
+    }
+
 }

@@ -73,7 +73,7 @@ namespace dust {
         return ev_base_;
     }
 
-    BufferEvent::BufferEvent(EventBase* base, evutil_socket_t sock, short ev_type) {
+    BufferEvent::BufferEvent(EventBase* base, evutil_socket_t sock) {
         bufev_ = bufferevent_socket_new(base->get_ev_base_(), sock, 0);
     }
 

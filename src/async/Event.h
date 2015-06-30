@@ -73,7 +73,7 @@ namespace dust {
         BufferEventDataCallBack* writecb_;
         BufferEventEvCallBack* eventcb_;
     public:
-        BufferEvent(EventBase* base, evutil_socket_t sock, short ev_type);
+        BufferEvent(EventBase* base, evutil_socket_t sock);
         ~BufferEvent();
 
         void SetCallBack(BufferEventDataCallBack* readcb,

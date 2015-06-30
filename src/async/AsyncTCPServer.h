@@ -14,7 +14,7 @@ namespace dust {
         struct OnNewClient {
             OnNewClient(){};
             ~OnNewClient() = default;
-            virtual void Call(int csock) = 0;
+            virtual void Call(BufferEvent* bufev) = 0;
         };
 
         AsyncTCPServer(EventBase* ev_base, int port);
@@ -27,6 +27,7 @@ namespace dust {
         void Close();
 
         TCPServer& get_srv_();
+        EventBase* get_ev_base_ref();
     private:
         struct _ats_server_cb : public EventCallBack {
             _ats_server_cb(AsyncTCPServer* ats) {
@@ -37,7 +38,8 @@ namespace dust {
             void Call() {
                 int csock = ats->get_srv_().Accept();
                 if(ats->get_on_new_cli_()) {
-                    ats->get_on_new_cli_()->Call(csock);
+                    BufferEvent* bufev = new BufferEvent(ats->get_ev_base_ref(), csock);
+                    ats->get_on_new_cli_()->Call(bufev);
                 }
             }
         };

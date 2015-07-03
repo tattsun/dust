@@ -8,7 +8,9 @@
 #include "../network/TCPServer.h"
 #include "./Event.h"
 
+#include <iostream>
 namespace dust {
+    //TODO: Fix memory leak(deleting event when user has gone)
     class AsyncTCPServer {
     public:
         struct OnNewClient {
@@ -37,6 +39,7 @@ namespace dust {
             AsyncTCPServer* ats;
             void Call() {
                 int csock = ats->get_srv_().Accept();
+                std::cerr << "COMING" << std::endl;
                 if(ats->get_on_new_cli_()) {
                     BufferEvent* bufev = new BufferEvent(ats->get_ev_base_ref(), csock);
                     ats->get_on_new_cli_()->Call(bufev);

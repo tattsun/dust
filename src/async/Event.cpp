@@ -3,6 +3,7 @@
 //
 
 #include "Event.h"
+#include <assert.h>
 
 namespace dust {
 
@@ -55,6 +56,7 @@ namespace dust {
                              ev->get_ev_type_(), _wrap_callback,
                              (void*)ev->get_callback_());
         ev->set_event_(e);
+        event_add(e, NULL);
     }
 
     void EventBase::DeleteListener(Event *ev) {

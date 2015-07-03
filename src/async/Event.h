@@ -10,6 +10,7 @@
 #include "event2/event.h"
 
 namespace dust {
+
     class Event;
 
     struct EventCallBack {

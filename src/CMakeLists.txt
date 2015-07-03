@@ -9,7 +9,7 @@ add_library(dust
     async/Event.h
     thread/PThread.cpp
     thread/PThread.h
-network/TCPServer.cpp network/TCPServer.h async/AsyncTCPServer.cpp async/AsyncTCPServer.h)
+network/TCPServer.cpp network/TCPServer.h async/AsyncTCPServer.cpp async/AsyncTCPServer.h network/PacketBuffer.cpp network/PacketBuffer.h)
 
 INSTALL(TARGETS dust
     RUNTIME DESTINATION bin

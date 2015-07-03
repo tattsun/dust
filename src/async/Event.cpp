@@ -106,6 +106,9 @@ namespace dust {
 
     void BufferEvent::SetCallBack(BufferEventDataCallBack *readcb, BufferEventDataCallBack *writecb,
                                   BufferEventEvCallBack *eventcb) {
+        this->readcb_ = readcb;
+        this->writecb_ = writecb;
+        this->eventcb_ = eventcb;
         bufferevent_setcb(bufev_,
                           _bufev_wrap_read_callback,
                           _bufev_wrap_write_callback,

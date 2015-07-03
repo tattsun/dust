@@ -77,6 +77,7 @@ namespace dust {
 
     BufferEvent::BufferEvent(EventBase* base, evutil_socket_t sock) {
         bufev_ = bufferevent_socket_new(base->get_ev_base_(), sock, 0);
+        bufferevent_setwatermark(bufev_, EV_READ, 128, 0);
     }
 
     BufferEvent::~BufferEvent() {

@@ -25,11 +25,6 @@ namespace dust {
         }
     }
 
-    void PacketBuffer::Write(const std::string& str) {
-        ByteChars ch(str);
-        Write(ch);
-    }
-
     void PacketBuffer::appendToBuffer(const ByteChars& input) {
         _buf.Append(input);
     }

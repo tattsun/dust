@@ -16,8 +16,8 @@ TEST_GROUP(PacketBufferTest) {
 
 TEST(PacketBufferTest, Works) {
     PacketBuffer pb1('\n');
-    pb1.Write("Hello\nTest\n");
-    pb1.Write("World\n");
+    pb1.Write(ByteChars("Hello\nTest\n"));
+    pb1.Write(ByteChars("World\n"));
 
     LONGS_EQUAL(3, pb1.Count());
     STRCMP_EQUAL("Hello", pb1.Pop()->c_str());
@@ -38,10 +38,10 @@ TEST(PacketBufferTest, Empty) {
 
 TEST(PacketBufferTest, NonContinuousInput) {
     PacketBuffer pb1('X');
-    pb1.Write("ABCDE");
-    pb1.Write("DEFXGHI");
-    pb1.Write("JKLMX");
-    pb1.Write("NOP");
+    pb1.Write(ByteChars("ABCDE"));
+    pb1.Write(ByteChars("DEFXGHI"));
+    pb1.Write(ByteChars("JKLMX"));
+    pb1.Write(ByteChars("NOP"));
     STRCMP_EQUAL("ABCDEDEF", pb1.Pop()->c_str());
     STRCMP_EQUAL("GHIJKLM", pb1.Pop()->c_str());
     CHECK(pb1.Pop() == nullptr);

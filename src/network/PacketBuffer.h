@@ -17,7 +17,7 @@ namespace dust {
         PacketBuffer(char delimiter);
 
         void Write(const ByteChars& bs);
-        void Write(const std::string& str);
+
         size_t Count();
         std::shared_ptr<ByteChars> Pop();
 

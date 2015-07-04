@@ -2,10 +2,7 @@ dependencies:
   pre:
     - sudo apt-get update && sudo apt-get install automake autoconf libtool
     - git clone git://github.com/cpputest/cpputest.git
-    - cd cpputest/cpputest_build
-    - cmake ..
-    - make && sudo make install
-    - cd ../
+    - cd cpputest/cpputest_build && cmake .. && make && sudo make install
     - mkdir build && cd build && cmake .. && make
 
 test:

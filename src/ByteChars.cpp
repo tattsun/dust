@@ -5,6 +5,7 @@
 #include "ByteChars.h"
 #include <iostream>
 #include <assert.h>
+#include <string.h>
 
 namespace dust {
 

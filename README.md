@@ -7,7 +7,7 @@ tattsun's useless C++ library(experimental)
 - CppUTest
     + See [install instruction](http://cpputest.github.io/).
 
-### Install
+### Build
 
 On the dust root directory, run the following commands.
  
@@ -21,7 +21,7 @@ $ make
 Copy ```src/``` and ```build/src/libdust.a``` into your projects.
 Then, include header files you need, link ```libdust.a``` when compiling. 
 
-### Install as a shared library
+### Install
 
 On the dust root directory, run the following commands.
 

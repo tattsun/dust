@@ -7,7 +7,6 @@
 #include <assert.h>
 #include <string.h>
 #include <iomanip>
-#include <malloc/malloc.h>
 
 namespace dust {
 
@@ -25,7 +24,6 @@ namespace dust {
         cs[1] = '\0';
         init(cs, 2);
         free(cs);
-        assert(malloc_zone_check(NULL));
     }
 
     ByteChars::ByteChars(const std::string &str) {
@@ -47,7 +45,6 @@ namespace dust {
 
     ByteChars::~ByteChars() {
         free(_cs);
-        assert(malloc_zone_check(NULL));
     }
 
     const char* ByteChars::c_str() const {
@@ -86,8 +83,7 @@ namespace dust {
         ByteChars bs(buf, len+1);
         free(buf);
         std::cout << "ZONECHK" << std::endl;
-
-        assert(malloc_zone_check(NULL));
+        
         std::cout << "OKAY" << std::endl;
         return bs;
     }

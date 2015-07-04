@@ -1,0 +1,21 @@
+box: debian
+
+build:
+  steps:
+    - script:
+       name: setup cpp environment
+       code: |
+         sudo apt-get -y update
+         sudo apt-get -y install make binutils g++ automake autoconf libtool cmake
+    - script:
+       name: setup cpputest
+       code: |
+         sudo apt-get -y update
+         sudo apt-get -y install cpputest
+    - script:
+       name: build project and run tests
+       code: |
+         mkdir build && cd build
+         cmake ..
+         make
+         make test

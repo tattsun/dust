@@ -8,6 +8,7 @@
 #include <iostream>
 #include <event2/bufferevent.h>
 #include "event2/event.h"
+#include "../ByteChars.h"
 
 namespace dust {
 
@@ -90,8 +91,8 @@ namespace dust {
         size_t Read(void* data, size_t size);
         int Write(const void* data, size_t size);
 
-        std::string Read(size_t size);
-        int Write(std::string data);
+        ByteChars Read(size_t size);
+        int Write(ByteChars data);
     };
 }
 

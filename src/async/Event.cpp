@@ -145,15 +145,15 @@ namespace dust {
         return bufferevent_write(bufev_, data, size);
     }
 
-    std::string BufferEvent::Read(size_t size) {
+    ByteChars BufferEvent::Read(size_t size) {
         char* cs = (char*)malloc(size);
         Read(cs, size);
-        std::string str(cs);
+        ByteChars str(cs);
         free(cs);
         return str;
     }
 
-    int BufferEvent::Write(std::string data) {
+    int BufferEvent::Write(ByteChars data) {
         return Write(data.c_str(), data.length());
     }
 

@@ -36,6 +36,12 @@ namespace dust {
             return nullptr;
         }
 
+        if (dpos == 0) {
+            ByteChars left(_buf.Substr(1));
+            _buf = left;
+            return nullptr;
+        }
+
         ByteChars packet(_buf.Substr(0, dpos));
         ByteChars left(_buf.Substr(dpos+1));
 

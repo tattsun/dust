@@ -35,8 +35,13 @@ namespace dust {
         return event_;
     }
 
+    void saylog(int s, const char *msg) {
+        printf("%d: %s\n", s, msg);
+    }
 
     EventBase::EventBase() {
+        event_enable_debug_mode();
+        event_set_log_callback(saylog);
         ev_base_ = event_base_new();
     }
 
@@ -77,7 +82,7 @@ namespace dust {
 
     BufferEvent::BufferEvent(EventBase* base, evutil_socket_t sock) {
         bufev_ = bufferevent_socket_new(base->get_ev_base_(), sock, 0);
-        bufferevent_setwatermark(bufev_, EV_READ, 128, 0);
+        //bufferevent_setwatermark(bufev_, EV_READ, 16, 0);
     }
 
     BufferEvent::~BufferEvent() {
@@ -85,6 +90,7 @@ namespace dust {
     }
 
     void _bufev_wrap_read_callback(bufferevent*, void *ctx) {
+        std::cout << "_bufev_wrap_read_callback" << std::endl;
         BufferEvent* bufev = (BufferEvent*)ctx;
         if(bufev->get_readcb_()) {
             bufev->get_readcb_()->Call(bufev);
@@ -92,13 +98,16 @@ namespace dust {
     }
 
     void _bufev_wrap_write_callback(bufferevent*, void *ctx) {
+        std::cout << "_bufev_wrap_write_callback" << std::endl;
         BufferEvent* bufev = (BufferEvent*)ctx;
+
         if(bufev->get_writecb_()) {
             bufev->get_writecb_()->Call(bufev);
         }
     }
 
     void _bufev_wrap_event_callback(bufferevent*, short evtype, void* ctx) {
+        std::cout << "_bufev_wrap_event_callback" << std::endl;
         BufferEvent* bufev = (BufferEvent*)ctx;
         if(bufev->get_eventcb_()) {
             bufev->get_eventcb_()->Call(bufev, evtype);
@@ -107,6 +116,7 @@ namespace dust {
 
     void BufferEvent::SetCallBack(BufferEventDataCallBack *readcb, BufferEventDataCallBack *writecb,
                                   BufferEventEvCallBack *eventcb) {
+        std::cerr << "Callback set" << std::endl;
         this->readcb_ = readcb;
         this->writecb_ = writecb;
         this->eventcb_ = eventcb;
@@ -148,13 +158,19 @@ namespace dust {
     ByteChars BufferEvent::Read(size_t size) {
         char* cs = (char*)malloc(size);
         Read(cs, size);
-        ByteChars str(cs);
+
+        /*
+        for(int i=0; i < 20; i++) {
+            printf("%d: %x\n", i, cs[i]);
+        }*/
+
+        ByteChars str(cs, size);
         free(cs);
         return str;
     }
 
     int BufferEvent::Write(ByteChars data) {
-        return Write(data.c_str(), data.length());
+        return Write(data.c_str(), data.length()+1);
     }
 
 }

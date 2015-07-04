@@ -51,11 +51,25 @@ TEST(PacketBufferTest, NonContinuousInput) {
     CHECK(pb1.Pop() == nullptr);
 }
 
+TEST(PacketBufferTest, WriteTest) {
+    char bytes[100];
+    for(int i=0; i<100; i++) {
+        bytes[i] = (char)(i+5);
+        if(i%5==0) { bytes[i] = (char)2; }
+    }
+    bytes[99] = '\0';
+
+    PacketBuffer pb((char)2);
+    for(int i=0; i<100; i++) {
+        pb.Write(ByteChars(bytes, 100));
+    }
+}
+
 TEST(PacketBufferTest, BinaryTest) {
     char bytes[10];
     bytes[0] = (char)0xffffff92;
-    bytes[1] = (char)0x1;
-    bytes[2] = (char)0xffffffd3;
+    bytes[1] = (char)0x0;
+    bytes[2] = (char)0x0;
     bytes[3] = (char)0xa;
 
     bytes[4] = (char)0xffffffeb;

@@ -8,4 +8,4 @@ RUN apt-get -y update && apt-get -y install make binutils g++ automake autoconf 
 RUN apt-get -y update && apt-get -y install cpputest
 
 # install dependencies
-RUN apt-get -y udpate && apt-get -y install libevent-dev
+RUN apt-get -y update && apt-get -y install libevent-dev

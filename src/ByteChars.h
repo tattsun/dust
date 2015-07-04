@@ -15,6 +15,7 @@ namespace dust {
     public:
         ByteChars();
         ByteChars(const char* cs, size_t len); // len is c length of char*.
+        ByteChars(char c);
         ByteChars(const std::string& str);
         ByteChars(const ByteChars& o);
 

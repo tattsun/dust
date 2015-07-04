@@ -17,6 +17,14 @@ namespace dust {
         init(cs, len);
     }
 
+    ByteChars::ByteChars(char c) {
+        char* cs = (char*)malloc(2);
+        cs[0] = c;
+        cs[1] = '\0';
+        init(cs, 2);
+        free(cs);
+    }
+
     ByteChars::ByteChars(const std::string &str) {
         init(str.c_str(), str.length()+1);
     }

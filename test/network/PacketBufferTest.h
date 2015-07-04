@@ -46,6 +46,42 @@ TEST(PacketBufferTest, NonContinuousInput) {
     STRCMP_EQUAL("GHIJKLM", pb1.Pop()->c_str());
     CHECK(pb1.Pop() == nullptr);
     CHECK(pb1.Pop() == nullptr);
+    pb1.Write(ByteChars("QRSXT"));
+    STRCMP_EQUAL("NOPQRS", pb1.Pop()->c_str());
+    CHECK(pb1.Pop() == nullptr);
+}
+
+TEST(PacketBufferTest, BinaryTest) {
+    char bytes[10];
+    bytes[0] = (char)0xffffff92;
+    bytes[1] = (char)0x1;
+    bytes[2] = (char)0xffffffd3;
+    bytes[3] = (char)0xa;
+
+    bytes[4] = (char)0xffffffeb;
+    bytes[5] = (char)0x62;
+    bytes[6] = (char)0xa;
+
+    bytes[7] = (char)0x62;
+    bytes[8] = (char)0x62;
+    bytes[9] = (char)0x62;
+
+
+    PacketBuffer pb1((char)0xa);
+    for(int i=0; i < 10; i++) pb1.Write(ByteChars(bytes[i]));
+
+    auto bc = pb1.Pop();
+    CHECK(bc->c_str()[0] == bytes[0]);
+    CHECK(bc->c_str()[1] == bytes[1]);
+    CHECK(bc->c_str()[2] == bytes[2]);
+    LONGS_EQUAL(3, bc->length());
+
+    auto bc2 = pb1.Pop();
+    CHECK(bc2->c_str()[0] == bytes[4]);
+    CHECK(bc2->c_str()[1] == bytes[5]);
+    LONGS_EQUAL(2, bc->length());
+
+    CHECK(pb1.Pop() == nullptr);
 }
 
 #endif //DUST_PACKETBUFFERTEST_H

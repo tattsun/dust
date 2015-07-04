@@ -18,6 +18,7 @@ namespace dust {
 
         void Write(const ByteChars& bs);
 
+
         size_t Count();
         std::shared_ptr<ByteChars> Pop();
 

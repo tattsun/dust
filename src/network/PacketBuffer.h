@@ -9,23 +9,25 @@
 #include <memory>
 #include <string>
 #include <sstream>
+#include "../ByteChars.h"
 
 namespace dust {
     class PacketBuffer {
     public:
         PacketBuffer(char delimiter);
 
-        void Write(std::string str);
+        void Write(const ByteChars& bs);
+        void Write(const std::string& str);
         size_t Count();
-        std::shared_ptr<std::string> Pop();
+        std::shared_ptr<ByteChars> Pop();
 
     private:
-        void appendToBuffer(std::string input);
-        std::shared_ptr<std::string> popPacketFromBuffer();
+        void appendToBuffer(const ByteChars& input);
+        std::shared_ptr<ByteChars> popPacketFromBuffer();
 
         char _delimiter;
-        std::list<std::string> _packets;
-        std::string _buf;
+        std::list<ByteChars> _packets;
+        ByteChars _buf;
     };
 }
 

@@ -1,0 +1,14 @@
+machine:
+    gcc:
+        version: 4.6.3
+    g++:
+        version: 4.6.3
+
+dependencies:
+    pre:
+        - apt-get install -y cpputest
+        - mkdir build && cd build && cmake .. && make
+
+test:
+    override:
+        - make test

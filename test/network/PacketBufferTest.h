@@ -18,9 +18,14 @@ TEST(PacketBufferTest, Works) {
     PacketBuffer pb1('\n');
     pb1.Write("Hello\nTest\n");
     pb1.Write("World\n");
+
+    LONGS_EQUAL(3, pb1.Count());
     STRCMP_EQUAL("Hello", pb1.Pop()->c_str());
+    LONGS_EQUAL(2, pb1.Count());
     STRCMP_EQUAL("Test", pb1.Pop()->c_str());
+    LONGS_EQUAL(1, pb1.Count());
     STRCMP_EQUAL("World", pb1.Pop()->c_str());
+    LONGS_EQUAL(0, pb1.Count());
     CHECK(pb1.Pop() == nullptr);
 }
 
@@ -42,4 +47,5 @@ TEST(PacketBufferTest, NonContinuousInput) {
     CHECK(pb1.Pop() == nullptr);
     CHECK(pb1.Pop() == nullptr);
 }
+
 #endif //DUST_PACKETBUFFERTEST_H

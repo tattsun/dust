@@ -6,6 +6,7 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
 // TestCases
+#include "ByteCharsTest.h"
 #include "network/PacketBufferTest.h"
 
 int main(int argc, char* argv[]) {

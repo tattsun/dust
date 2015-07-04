@@ -1,6 +1,6 @@
 ## dust: An dusty C++ Library
 
-tattsun's useless C++ library
+tattsun's useless C++ library(experimental)
 
 ### Requirements
 

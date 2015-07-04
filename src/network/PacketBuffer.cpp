@@ -3,8 +3,6 @@
 //
 
 #include "PacketBuffer.h"
-#include <iostream>
-
 
 namespace dust {
 
@@ -14,49 +12,53 @@ namespace dust {
     , _buf() {
     }
 
-    void PacketBuffer::Write(std::string str) {
+    void PacketBuffer::Write(const ByteChars& str) {
         appendToBuffer(str);
 
         while(1) {
-            std::shared_ptr<std::string> packet = popPacketFromBuffer();
+            std::shared_ptr<ByteChars> packet = popPacketFromBuffer();
             if(packet == nullptr) {
                 break;
             }
-            _packets.push_back(std::string(*packet));
+
+            _packets.push_back(ByteChars(*packet));
         }
     }
 
-    void PacketBuffer::appendToBuffer(std::string input) {
-        std::stringstream s;
-        s << _buf << input;
-        _buf = s.str();
-
+    void PacketBuffer::Write(const std::string& str) {
+        ByteChars ch(str);
+        Write(ch);
     }
 
-    std::shared_ptr<std::string> PacketBuffer::popPacketFromBuffer() {
-        std::size_t dpos = _buf.find_first_of(_delimiter);
-        if (dpos == std::string::npos) {
+    void PacketBuffer::appendToBuffer(const ByteChars& input) {
+        _buf.Append(input);
+    }
+
+    std::shared_ptr<ByteChars> PacketBuffer::popPacketFromBuffer() {
+        size_t dpos = _buf.FindCharFirstPos(_delimiter);
+
+        if (dpos == -1) {
             return nullptr;
         }
 
-        std::string packet(_buf.substr(0, dpos));
-        std::string left(_buf.substr(dpos+1));
+        ByteChars packet(_buf.Substr(0, dpos));
+        ByteChars left(_buf.Substr(dpos+1));
 
         _buf = left;
-        return std::make_shared<std::string>(packet);
+        return std::make_shared<ByteChars>(packet);
     }
 
     size_t PacketBuffer::Count() {
         return _packets.size();
     }
 
-    std::shared_ptr<std::string> PacketBuffer::Pop() {
+    std::shared_ptr<ByteChars> PacketBuffer::Pop() {
         if (_packets.size() == 0) {
             return nullptr;
         }
-        std::string front(_packets.front());
+        ByteChars front(_packets.front());
         _packets.pop_front();
-        return std::make_shared<std::string>(front);
+        return std::make_shared<ByteChars>(front);
     }
 
 }

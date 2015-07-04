@@ -14,8 +14,8 @@ namespace dust {
 
     public:
         ByteChars();
-        ByteChars(const char* cs, size_t len);
-        ByteChars(std::string& str);
+        ByteChars(const char* cs, size_t len); // len is c length of char*.
+        ByteChars(const std::string& str);
         ByteChars(const ByteChars& o);
 
         ByteChars& operator=(const ByteChars& rhs);
@@ -26,9 +26,15 @@ namespace dust {
         size_t length() const;
 
         void Append(const ByteChars& o);
+        size_t FindCharFirstPos(char ch) const;
+        ByteChars Substr(size_t index, size_t len) const;
+        ByteChars Substr(size_t index) const;
     private:
+        // len is c length of char*.
+        void init(const char* cs, size_t len);
+
         char* _cs;
-        size_t _len;
+        size_t _len; // ignore the length of \0
 
     };
 

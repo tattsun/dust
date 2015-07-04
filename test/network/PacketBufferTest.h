@@ -79,7 +79,7 @@ TEST(PacketBufferTest, BinaryTest) {
     auto bc2 = pb1.Pop();
     CHECK(bc2->c_str()[0] == bytes[4]);
     CHECK(bc2->c_str()[1] == bytes[5]);
-    LONGS_EQUAL(2, bc->length());
+    LONGS_EQUAL(2, bc2->length());
 
     CHECK(pb1.Pop() == nullptr);
 }

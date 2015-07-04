@@ -6,6 +6,7 @@
 #include <iostream>
 #include <assert.h>
 #include <string.h>
+#include <iomanip>
 
 namespace dust {
 
@@ -87,6 +88,21 @@ namespace dust {
         _cs = (char*)malloc(len);
         strcpy(_cs, cs);
         _len = len-1;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const ByteChars& bc) {
+        const char* cs = bc.c_str();
+        size_t len = bc.length();
+
+        for(int i=0; i < len; i++) {
+            os << std::hex
+               << std::showbase
+               << std::setw(2)
+               << (int)cs[i];
+            os << ' ';
+        }
+
+        return os;
     }
 
 

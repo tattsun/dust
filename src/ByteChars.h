@@ -30,6 +30,7 @@ namespace dust {
         size_t FindCharFirstPos(char ch) const;
         ByteChars Substr(size_t index, size_t len) const;
         ByteChars Substr(size_t index) const;
+
     private:
         // len is c length of char*.
         void init(const char* cs, size_t len);
@@ -38,6 +39,8 @@ namespace dust {
         size_t _len; // ignore the length of \0
 
     };
+
+    std::ostream& operator<<(std::ostream& os, const ByteChars& bc);
 
 }
 

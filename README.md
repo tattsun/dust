@@ -1,6 +1,5 @@
 ## dust: An dusty C++ Library
 
-
 [![Circle CI](https://circleci.com/gh/tattsun/dust.svg?style=svg)](https://circleci.com/gh/tattsun/dust)
 
 tattsun's useless C++ library(experimental)

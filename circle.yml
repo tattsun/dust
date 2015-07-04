@@ -4,12 +4,12 @@ machine:
 
 dependencies:
   override:
-    - docker pull tattsun/dustdevenv
+    - docker pull tattsun/dusttestenv
 
 test:
   override:
     - >
-      docker run -v $(pwd):/app tattsun/dustdevenv bash -c
+      docker run -v $(pwd):/app tattsun/dusttestenv bash -c
       "
       cd /app;
       mkdir build;

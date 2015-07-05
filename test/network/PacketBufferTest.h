@@ -65,6 +65,7 @@ TEST(PacketBufferTest, WriteTest) {
     }
 }
 
+
 TEST(PacketBufferTest, BinaryTest) {
     char bytes[10];
     bytes[0] = (char)0xffffff92;
@@ -82,7 +83,9 @@ TEST(PacketBufferTest, BinaryTest) {
 
 
     PacketBuffer pb1((char)0xa);
-    for(int i=0; i < 10; i++) pb1.Write(ByteChars(bytes[i]));
+    for(int i=0; i < 10; i++) {
+        pb1.Write(ByteChars(bytes[i]));
+    }
 
     auto bc = pb1.Pop();
     CHECK(bc->c_str()[0] == bytes[0]);

@@ -16,6 +16,7 @@ namespace dust {
         appendToBuffer(str);
 
         while(1) {
+
             std::shared_ptr<ByteChars> packet = popPacketFromBuffer();
             if(packet == nullptr) {
                 break;

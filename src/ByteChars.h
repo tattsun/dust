@@ -14,12 +14,9 @@ namespace dust {
 
     public:
         ByteChars();
-        ByteChars(const char* cs, size_t len); // len is c length of char*.
+        ByteChars(const char* cs, size_t len);
         ByteChars(char c);
         ByteChars(const std::string& str);
-        ByteChars(const ByteChars& o);
-
-        ByteChars& operator=(const ByteChars& rhs);
 
         ~ByteChars();
 
@@ -31,17 +28,13 @@ namespace dust {
         ByteChars Substr(size_t index, size_t len) const;
         ByteChars Substr(size_t index) const;
 
+        const std::string& get_str_ref() const;
+
     private:
-        // len is c length of char*.
-        void init(const char* cs, size_t len);
-
-        char* _cs;
-        size_t _len; // ignore the length of \0
-
+        std::string _str;
     };
 
     std::ostream& operator<<(std::ostream& os, const ByteChars& bc);
-
 }
 
 

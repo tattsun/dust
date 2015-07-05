@@ -16,7 +16,7 @@ TEST_GROUP(ByteCharsTest) {
 TEST(ByteCharsTest, Instantiate) {
     {
         const char *t1 = "Hello";
-        ByteChars b1(t1, 6);
+        ByteChars b1(t1, 5);
         STRCMP_EQUAL(t1, b1.c_str());
         LONGS_EQUAL(5, b1.length());
     }

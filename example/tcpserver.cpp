@@ -14,18 +14,6 @@ struct read_cb : public BufferEventDataCallBack {
     void Call(BufferEvent* bufev) {
         std::cout << "read_cb::Call" << std::endl;
 
-        /*
-        size_t buflen = 1024;
-        char* buf = (char*)malloc(buflen);
-        size_t readt = bufev->Read(buf, buflen);
-
-        std::cout << "Received: ";
-        for(size_t i=0; i < readt; i++) {
-            putchar(buf[i]);
-        }
-        std::cout << std::endl;
-         */
-
         ByteChars bc(bufev->Read(1024));
 
         std::string str(bc.c_str(), bc.length());

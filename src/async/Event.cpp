@@ -157,14 +157,14 @@ namespace dust {
 
     ByteChars BufferEvent::Read(size_t size) {
         char* cs = (char*)malloc(size);
-        Read(cs, size);
+        size_t recvlen = Read(cs, size);
 
         /*
         for(int i=0; i < 20; i++) {
             printf("%d: %x\n", i, cs[i]);
         }*/
 
-        ByteChars str(cs, size);
+        ByteChars str(cs, recvlen);
         free(cs);
         return str;
     }

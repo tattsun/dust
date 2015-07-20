@@ -187,4 +187,27 @@ namespace dust {
         return Write(data.c_str(), data.length()+1);
     }
 
+    void evtimer_wrap_callback(evutil_socket_t sock, short ev_type, void* args) {
+        EventTimerCallback* cb = (EventTimerCallback*)args;
+        cb->Call();
+    }
+
+    EventTimer::EventTimer(EventBase *base, EventTimerCallback* cb) {
+        cb->ev_timer = this;
+        this->ev = evtimer_new(base->get_ev_base_(),
+                               evtimer_wrap_callback, cb);
+    }
+
+    EventTimer::~EventTimer() {
+        evtimer_del(ev);
+        free(timeout);
+    }
+
+    void EventTimer::Set(long sec, long usec) {
+        timeout = (struct timeval*)malloc(sizeof(struct timeval));
+        timeout->tv_sec = sec;
+        timeout->tv_usec = usec;
+        evtimer_add(ev, timeout);
+    }
+
 }

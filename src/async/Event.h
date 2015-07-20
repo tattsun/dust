@@ -94,6 +94,25 @@ namespace dust {
         ByteChars Read(size_t size);
         int Write(ByteChars data);
     };
+
+    class EventTimer;
+
+    struct EventTimerCallback {
+        EventTimerCallback() {};
+        virtual ~EventTimerCallback() = default;
+        virtual void Call() = 0;
+        EventTimer* ev_timer;
+    };
+
+    class EventTimer {
+        timeval* timeout;
+        event* ev;
+    public:
+        EventTimer(EventBase* base, EventTimerCallback* cb);
+        ~EventTimer();
+
+        void Set(long sec, long usec);
+    };
 }
 
 

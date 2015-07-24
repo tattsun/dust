@@ -169,7 +169,7 @@ namespace dust {
         return bufferevent_write(bufev_, data, size);
     }
 
-    ByteChars BufferEvent::Read(size_t size) {
+    std::string BufferEvent::Read(size_t size) {
         char* cs = (char*)malloc(size);
         size_t recvlen = Read(cs, size);
 
@@ -178,12 +178,12 @@ namespace dust {
             printf("%d: %x\n", i, cs[i]);
         }*/
 
-        ByteChars str(cs, recvlen);
+        std::string str(cs, recvlen);
         free(cs);
         return str;
     }
 
-    int BufferEvent::Write(ByteChars data) {
+    int BufferEvent::Write(std::string data) {
         return Write(data.c_str(), data.length()+1);
     }
 

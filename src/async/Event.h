@@ -91,8 +91,8 @@ namespace dust {
         size_t Read(void* data, size_t size);
         int Write(const void* data, size_t size);
 
-        ByteChars Read(size_t size);
-        int Write(ByteChars data);
+        std::string Read(size_t size);
+        int Write(std::string data);
     };
 
     class EventTimer;

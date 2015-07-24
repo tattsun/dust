@@ -184,7 +184,7 @@ namespace dust {
     }
 
     int BufferEvent::Write(std::string data) {
-        return Write(data.c_str(), data.length()+1);
+        return Write(data.c_str(), data.length());
     }
 
     void evtimer_wrap_callback(evutil_socket_t sock, short ev_type, void* args) {

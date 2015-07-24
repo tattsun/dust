@@ -14,5 +14,5 @@ test:
       cd /app;
       mkdir build;
       cd build;
-      cmake .. && make && make test
+      cmake .. && make -j && make test
       "

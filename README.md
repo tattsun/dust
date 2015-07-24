@@ -7,6 +7,7 @@ tattsun's useless C++ library(experimental)
 
 ### Requirements
 
+- boost 1.58.0
 - CppUTest
     + See [install instruction](http://cpputest.github.io/).
 

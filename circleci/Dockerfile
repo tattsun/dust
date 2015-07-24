@@ -9,3 +9,6 @@ RUN apt-get -y update && apt-get -y install cpputest
 
 # install dependencies
 RUN apt-get -y update && apt-get -y install libevent-dev
+
+# install boost
+RUN apt-get -y update && apt-get -y install libboost-all-dev

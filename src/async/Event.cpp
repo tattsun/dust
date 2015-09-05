@@ -90,7 +90,6 @@ namespace dust {
     }
 
     void _bufev_wrap_read_callback(bufferevent*, void *ctx) {
-        std::cout << "_bufev_wrap_read_callback" << std::endl;
         BufferEvent* bufev = (BufferEvent*)ctx;
 
         if (bufev->get_readcb_() == NULL) {
@@ -103,7 +102,6 @@ namespace dust {
     }
 
     void _bufev_wrap_write_callback(bufferevent*, void *ctx) {
-        std::cout << "_bufev_wrap_write_callback" << std::endl;
         BufferEvent* bufev = (BufferEvent*)ctx;
 
         if(bufev->get_writecb_() == NULL) {
@@ -116,7 +114,6 @@ namespace dust {
     }
 
     void _bufev_wrap_event_callback(bufferevent*, short evtype, void* ctx) {
-        std::cout << "_bufev_wrap_event_callback" << std::endl;
         BufferEvent* bufev = (BufferEvent*)ctx;
 
         if (bufev->get_eventcb_() == NULL) {

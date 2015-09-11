@@ -61,7 +61,7 @@ TEST(WithLengthPacketBufferTest, CanParseTooLongPacket)
         packet << (char)0x1;
     }
     std::stringstream s;
-    s << (char)0x03 << (char)0xb6;
+    s << (unsigned char)0x03 << (unsigned char)0xb6;
     s << packet.str();
     s << (char)0xc1;
 

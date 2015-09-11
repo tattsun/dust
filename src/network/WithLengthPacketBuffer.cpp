@@ -6,8 +6,10 @@
 #include <sstream>
 
 namespace dust {
-    std::size_t addSizeBytes(char ch0, char ch1) {
-        return (std::size_t) ch0 * 0x100 + ch1;
+    long addSizeBytes(unsigned char ch0, unsigned char ch1) {
+        long l0 = 0x100 * ch0;
+        long l1 = ch1;
+        return l0 + l1;
     }
 
     WithLengthPacketBuffer::WithLengthPacketBuffer(char delimiter)
@@ -57,12 +59,10 @@ namespace dust {
         if (_buf.length() < 2)
             return boost::optional<std::string>();
 
-
         const char *buf = _buf.c_str();
         std::size_t length = _buf.length();
 
-        std::size_t packet_len = addSizeBytes(buf[0], buf[1]);
-
+        long packet_len = addSizeBytes((unsigned char)buf[0], (unsigned char)buf[1]);
 
         if (length - 3 < packet_len)
             return boost::optional<std::string>();
@@ -72,7 +72,7 @@ namespace dust {
             spacket << buf[i + 2];
 
         std::stringstream sleft;
-        for (std::size_t i = packet_len + 3; i < length; i++) {
+        for (long i = packet_len + 3; i < length; i++) {
             sleft << buf[i];
         }
 

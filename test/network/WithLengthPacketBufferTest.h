@@ -53,5 +53,27 @@ TEST(WithLengthPacketBufferTest, Works) {
     LONGS_EQUAL(0, buf.Count());
 }
 
+TEST(WithLengthPacketBufferTest, CanParseTooLongPacket)
+{
+    WithLengthPacketBuffer buf((char)0xc1);
+    std::stringstream packet;
+    for(int i=0; i<950; i++) {
+        packet << (char)0x1;
+    }
+    std::stringstream s;
+    s << (char)0x03 << (char)0xb6;
+    s << packet.str();
+    s << (char)0xc1;
+
+    CHECK(buf.Write(s.str()));
+    auto parsedPacket = buf.Pop();
+
+    if(parsedPacket) {
+        CHECK_EQUAL(packet.str(), *parsedPacket);
+    } else {
+        FAIL("Could not parse packet");
+    }
+}
+
 
 #endif //DUST_WITHLENGTHPACKETBUFFERTEST_H

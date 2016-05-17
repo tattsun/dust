@@ -69,7 +69,7 @@ TEST(WithLengthPacketBufferTest, CanParseTooLongPacket)
     auto parsedPacket = buf.Pop();
 
     if(parsedPacket) {
-        CHECK_EQUAL(packet.str(), *parsedPacket);
+        STRCMP_EQUAL(packet.str().c_str(), (*parsedPacket).c_str());
     } else {
         FAIL("Could not parse packet");
     }

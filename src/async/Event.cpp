@@ -166,6 +166,10 @@ namespace dust {
         return bufferevent_write(bufev_, data, size);
     }
 
+    int BufferEvent::Flush() {
+        return bufferevent_flush(bufev_, EV_WRITE, BEV_NORMAL);
+    }
+
     std::string BufferEvent::Read(size_t size) {
         char* cs = (char*)malloc(size);
         size_t recvlen = Read(cs, size);

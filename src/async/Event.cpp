@@ -81,7 +81,7 @@ namespace dust {
     }
 
     BufferEvent::BufferEvent(EventBase* base, evutil_socket_t sock) {
-        bufev_ = bufferevent_socket_new(base->get_ev_base_(), sock, 0);
+        bufev_ = bufferevent_socket_new(base->get_ev_base_(), sock, BEV_OPT_CLOSE_ON_FREE);
         //bufferevent_setwatermark(bufev_, EV_READ, 16, 0);
     }
 
@@ -168,6 +168,10 @@ namespace dust {
 
     int BufferEvent::Flush() {
         return bufferevent_flush(bufev_, EV_WRITE, BEV_NORMAL);
+    }
+
+    int BufferEvent::Flush(short iotype) {
+        return bufferevent_flush(bufev_, iotype, BEV_NORMAL);
     }
 
     std::string BufferEvent::Read(size_t size) {

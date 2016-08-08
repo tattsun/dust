@@ -91,6 +91,7 @@ namespace dust {
         size_t Read(void* data, size_t size);
         int Write(const void* data, size_t size);
         int Flush();
+        int Flush(short iotype);
 
         std::string Read(size_t size);
         int Write(std::string data);

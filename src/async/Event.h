@@ -95,6 +95,8 @@ namespace dust {
 
         std::string Read(size_t size);
         int Write(std::string data);
+
+        bufferevent* get_bufferevent();
     };
 
     class EventTimer;

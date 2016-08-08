@@ -192,6 +192,10 @@ namespace dust {
         return Write(data.c_str(), data.length());
     }
 
+    bufferevent* BufferEvent::get_bufferevent() {
+        return bufev_;
+    }
+
     void evtimer_wrap_callback(evutil_socket_t sock, short ev_type, void* args) {
         EventTimerCallback* cb = (EventTimerCallback*)args;
         cb->Call();
